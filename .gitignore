@@ -1,2 +1,4 @@
 target
 elm-stuff
+_site
+.jekyll-metadata
