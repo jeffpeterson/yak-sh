@@ -55,6 +55,7 @@ p + h6 {
 .logo {
   font-size: 20px;
   color: $heading-color;
+  transition: color 300ms ease-in-out;
 
   &::after {
     content: 'aving';
@@ -63,7 +64,11 @@ p + h6 {
     transition: opacity 300ms ease-in-out;
   }
 
-  &:hover::after {
-    opacity: 1;
+  &:hover {
+    // color: $red;
+
+    &::after {
+      opacity: 1;
+    }
   }
 }
