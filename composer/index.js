@@ -1,18 +1,10 @@
-import * as FP from './logic/FP.js'
-import * as IO from './logic/IO.js'
-import * as Rendering from './logic/Rendering.js'
+import "control/Hacks.js"
+import {cond, is} from './FP.js'
+import {main} from './Composer.js'
 
-const $_trace = str => x =>
-	(FP.$_log(str + ':', x), x)
+cond([
+  [is(Signal), sig =>
+    sig.unsafeOnChange()],
 
-const $_getData = IO.get('data.json')
-
-
-const $_main =
-  FP.compose(
-    FP.map($_trace('delayed data')),
-    FP.map(FP.delay(3000)),
-    FP.map($_trace('data')),
-    $_getData)
-
-$_main()
+  [is(Tree.Node), DOM.mount(document.body)],
+])

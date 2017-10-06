@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+$max-width: 720px;
+
+$line-color: #eee;
+$dim-color: #ddd;
+
+$text-color: #222;
+$heading-color: #000;
+
+$red: #F42525;
+
+body {
+  color: $text-color;
+  font-size: 18px;
+  line-height: 1.5;
+  font-family: "Lato", "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+header {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 10px 0;
+  border-bottom: 1px solid $line-color;
+}
+
+main {
+  margin: 0 auto;
+  max-width: $max-width;
+  padding: 10px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $heading-color;
+}
+
+a {
+  color: $red;
+  text-decoration: none;
+}
+
+p + h1,
+p + h2,
+p + h3,
+p + h4,
+p + h5,
+p + h6 {
+  margin-top: 1.5rem;
+}
+
+.dim {
+  color: $dim-color;
+}
+
+.logo {
+  font-size: 20px;
+  color: $heading-color;
+
+  &::after {
+    content: 'aving';
+    display: inline;
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
