@@ -2,3 +2,4 @@ target
 elm-stuff
 _site
 .jekyll-metadata
+node_modules

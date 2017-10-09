@@ -1,7 +1,7 @@
-import {map, compose} from "./logic/FP.js"
-import {get} from "./logic/Networking.js"
-import {div} from "./logic/Tree.js"
-import * as Rendering from "./logic/Rendering.js"
+import {map, compose} from "../lib/logic/FP.js"
+import {get} from "../lib/logic/Networking.js"
+import {div} from "../lib/logic/Tree.js"
+import * as Rendering from "../lib/logic/Rendering.js"
 
 const steps =
   [ value(yRatio),

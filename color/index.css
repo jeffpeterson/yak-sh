@@ -1,0 +1,8 @@
+.inline-swatch {
+  background-color: currentColor;
+  border-radius: 2px;
+  display: inline-block;
+  height: 1em;
+  vertical-align: middle;
+  width: 1em;
+}
