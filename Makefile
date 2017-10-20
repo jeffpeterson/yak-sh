@@ -13,19 +13,8 @@ open:
 
 images: $(imgs)
 
-%.png: FORCE
-	pngcrush $@
+%.png: %.original.png
+	pngcrush $< $@
 
 %.jpg: %.original.jpg
-	guetzli \
-		--quality 80 \
-		$< $@
-	jpegoptim \
-		--strip-all \
-		--max=85 \
-		--all-progressive \
-		--stdout \
-		$< \
-		> $@
-
-FORCE:
+	guetzli --quality 85 $< $@
