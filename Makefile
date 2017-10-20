@@ -1,3 +1,5 @@
+.PHONY: all serve open images
+
 all: open serve
 
 serve:
@@ -5,3 +7,13 @@ serve:
 
 open:
 	open http://localhost:4000/
+
+images: **/*.jpg
+
+%.png: FORCE
+	pngcrush $@
+
+%.jpg: FORCE
+	jpegoptim --strip-all --all-progressive $@
+
+FORCE:
