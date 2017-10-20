@@ -1,5 +1,5 @@
 
-/// ybr([248, 228, 184]) -> [228.964, 102.62527999999999, 141.57772799999998]
+/// ybr([248, 228, 184, 1]) -> [228.964, 102.62527999999999, 141.57772799999998, 1]
 export const ybr = ([r,g,b,a]) =>
 // YCbCr better maps to human color perception
 // see http://en.wikipedia.org/wiki/YCbCr
