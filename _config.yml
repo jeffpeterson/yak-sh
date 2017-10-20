@@ -1,9 +1,12 @@
+title: yak.sh
+
+permalink: /:categories/:year/:month/:day/:title/
+google_analytics: UA-107712986-1
+
+theme: null
 markdown: kramdown
 plugins:
   - jekyll-feed
 
 include:
   - .well-known
-
-title: yak.sh
-google_analytics: UA-107712986-1

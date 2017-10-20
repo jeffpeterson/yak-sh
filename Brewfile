@@ -1,4 +1,5 @@
-brew 'jpegoptim'
+# brew 'jpegoptim'
 brew 'pngcrush'
 brew 'svgo'
 brew 'gifsicle'
+brew 'guetzli'
