@@ -1,0 +1,11 @@
+---
+title: GIFs
+layout: default
+---
+
+<h1>GIFs</h1>
+
+{% assign gifs = site.static_files | where: "extname", ".gif" %}
+{% for gif in gifs %}
+  {% include image.html src=gif.path alt=gif.basename caption=gif.basename href=gif.path %}
+{% endfor %}

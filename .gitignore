@@ -1,6 +1,7 @@
+.jekyll-metadata
+.DS_Store
 tmp
 target
 elm-stuff
-.jekyll-metadata
 node_modules
 _site
