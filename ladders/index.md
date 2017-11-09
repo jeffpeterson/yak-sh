@@ -12,7 +12,7 @@ Using concepts from the papers "Out of the Tar Pit" and "Ladder of Abstraction",
 * [The Value of Values][values] -- Rich Hickey
 * [Simple Made Easy][simple] -- Rich Hickey
 * [Are We There Yet?][there-yet] -- Rich Hickey
-* [On Building Systems that will Fail][failing-systems] -- Fernando Corbato
+* [On Building Systems That Will Fail][failing-systems] -- Fernando Corbato
 
 [tar-pit]: https://github.com/papers-we-love/papers-we-love/blob/master/design/out-of-the-tar-pit.pdf
 [ladder]: worrydream.com/LadderOfAbstraction/
