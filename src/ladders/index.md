@@ -1,6 +1,6 @@
 # Ladders and Tar Pits
 
-Using concepts from the papers "Out of the Tar Pit" and "Ladder of Abstraction", we'll examine what it means to build robust abstractions. We'll cover the separation of concerns: state, logic, and control. We'll talk about combining complex objects into primitives (weird, I know). The difference between Essential and Accidental Complexity. How flexibility is a result of constraints. And ultimately, we'll learn how to build better software faster by thinking about problems differently.
+Using concepts from the papers "Out of the Tar Pit" and "Up and Down the Ladder of Abstraction", we'll examine what it means to build robust abstractions. We'll cover the separation of concerns: state, logic, and control. We'll talk about combining complex objects into primitives (weird, I know). The difference between Essential and Accidental Complexity. How flexibility is a result of constraints. And ultimately, we'll learn how to build better software faster by thinking about problems differently.
 
 ## Further Reading
 
