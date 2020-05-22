@@ -1,6 +1,6 @@
 title: yak.sh
 
-permalink: /:categories/:year/:month/:day/:title/
+permalink: /:title/
 google_analytics: UA-107712986-1
 
 source: src

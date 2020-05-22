@@ -1,86 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Lato');
-@import "layout";
+@import url("https://fonts.googleapis.com/css?family=Lato");
 
 $max-width: 720px;
 
+$line: 27px;
 $line-color: #eee;
 $dim-color: #ccc;
 
 $heading-color: #000;
 $text-color: #222;
+$quote-color: #444;
 $caption-color: #888;
 
-$red: #F42525;
-
-body {
-  color: $text-color;
-  font-size: 18px;
-  line-height: 1.5;
-  font-family: "Lato", "Open Sans", Helvetica, Arial, sans-serif;
-  padding: 0 1rem;
-}
-
-header {
-  max-width: $max-width;
-  margin: 0 auto;
-  padding: 10px 0;
-  border-bottom: 1px solid $line-color;
-}
-
-main {
-  margin: 0 auto;
-  max-width: $max-width;
-  padding: 10px 0;
-  position: relative;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: $heading-color;
-}
-
-a {
-  color: $red;
-  text-decoration: none;
-}
-
-figure {
-  display: block;
-  padding: 3rem 0;
-  text-align: center;
-}
-
-figcaption {
-  color: $caption-color;
-  font-size: 0.9rem;
-}
-
-img, canvas {
-  height: auto;
-  max-width: 100%;
-  width: 400px;
-}
-
-.dim {
-  color: $dim-color;
-}
-
-.logo {
-  font-size: 20px;
-  color: $heading-color;
-  transition: color 300ms ease-in-out;
-
-  &::after {
-    content: 'aving';
-    display: inline;
-    opacity: 0;
-    transition: opacity 300ms ease-in-out;
-  }
-
-  &:hover {
-    // color: $red;
-
-    &::after {
-      opacity: 1;
-    }
-  }
-}
+$red: #f42525;
