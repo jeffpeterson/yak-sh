@@ -9,17 +9,10 @@ $dim-color: #ccc;
 $heading-color: #000;
 $text-color: #222;
 $caption-color: #888;
-$quote-color: #555;
 
 $red: #F42525;
-$mint: rgb(42, 215, 146);
-$beige: rgb(255, 254, 247);
-
-$background: white;
-$primary: $mint;
 
 body {
-  background-color: $background;
   color: $text-color;
   font-size: 18px;
   line-height: 1.5;
@@ -46,22 +39,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  // color: $primary;
-  color: inherit;
-  border-bottom: 1px solid $dim-color;
+  color: $red;
   text-decoration: none;
-  transition: border-color 200ms ease-in-out;
-
-  &:hover {
-    border-color: $primary;
-  }
-}
-
-blockquote {
-  border-left: 3px solid $dim-color;
-  color: $quote-color;
-  margin: 1em 0;
-  padding-left: 1em;
 }
 
 figure {
@@ -89,7 +68,6 @@ img, canvas {
   font-size: 20px;
   color: $heading-color;
   transition: color 300ms ease-in-out;
-  border: 0;
 
   &::after {
     content: 'aving';
@@ -99,7 +77,7 @@ img, canvas {
   }
 
   &:hover {
-    // color: $primary;
+    // color: $red;
 
     &::after {
       opacity: 1;
