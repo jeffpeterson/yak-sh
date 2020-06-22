@@ -13,3 +13,21 @@ export function eachFrame(v, fn) {
 
   return onFrame;
 }
+
+export function cloneCtx(ctx) {
+  const canvas = document.createElement("canvas");
+  canvas.width = ctx.canvas.width;
+  canvas.height = ctx.canvas.height;
+  return canvas.getContext("2d");
+}
+
+export const withCtx = (fn) => (ctx) => {
+  fn(ctx);
+};
+
+export const withState = (fn) =>
+  withCtx((ctx) => {
+    ctx.save();
+    fn(ctx);
+    ctx.restore();
+  });

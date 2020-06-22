@@ -1,48 +1,77 @@
-import { run } from "./lib.js";
+import { run, cloneCtx, withState } from "./lib.js";
+
+const binCount = 1024;
+const buffer = new Uint8Array(binCount);
+const height = binCount;
+const width = window.innerWidth;
+
+output.width = width;
+output.height = height;
+
+const outputCtx = output.getContext("2d");
+const bufferCtx = cloneCtx(outputCtx);
+
+save.onclick = (e) => {
+  // e.preventDefault();
+  save.href = output.toDataURL("image/png");
+};
+
+nav.appendChild(save);
 
 run({
   async start() {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-    const ctx = new AudioContext();
-    const source = ctx.createMediaStreamSource(stream);
-    const analyser = ctx.createAnalyser();
+    const audio = new AudioContext();
+    const source = audio.createMediaStreamSource(stream);
+    const analyser = audio.createAnalyser();
 
     analyser.smoothingTimeConstant = 0;
-    analyser.ffsSize = 512;
-
-    const height = analyser.frequencyBinCount;
-
-    const buffer = new Uint8Array(height);
-
+    analyser.ffsSize = 1024;
     source.connect(analyser);
-    const width = window.innerWidth;
-    canvas.width = width;
-    canvas.height = height;
 
-    return { frame: 0, analyser, buffer, width, height };
+    return { frame: 0, ctx: outputCtx, analyser };
   },
-  draw({ frame, analyser, buffer, width, height }) {
+
+  draw({ frame, ctx, analyser }) {
     analyser.getByteFrequencyData(buffer);
 
-    const ctx = canvas.getContext("2d");
-    const x = frame % width;
-
-    let max = { v: 0, y: 0 };
-
-    for (let y = 0; y < buffer.length; y++) {
-      const v = buffer[y];
-      const c = 255 - v;
-      if (v > max.v) max = { v, y };
-      ctx.fillStyle = `rgb(${c}, ${c}, ${c})`;
-      ctx.fillRect(x, y, 1, 1);
-    }
-
-    // if (max.v > 0) {
-    //   ctx.fillStyle = `rgb(${max.v}, 0, 0)`;
-    //   ctx.fillRect(x, max.y, 1, 1);
-    // }
+    ctx.clearRect(0, 0, width, height);
+    drawSpectrogram(bufferCtx);
+    ctx.drawImage(bufferCtx.canvas, 0, 0);
+    // drawLive(ctx);
 
     return { frame: frame + 1 };
   },
 });
+
+const drawSpectrogram = (ctx) => {
+  ctx.drawImage(ctx.canvas, -1, 0);
+
+  withState((ctx) => {
+    ctx.translate(width - 1, 0);
+    drawBuffer(ctx);
+  })(ctx);
+};
+
+const drawBuffer = (ctx) => {
+  let max = { v: 0, y: 0 };
+
+  for (let y = 0; y < buffer.length; y++) {
+    const v = buffer[y];
+    const c = 255 - v;
+
+    if (v > max.v) max = { v, y };
+
+    ctx.fillStyle = `rgb(${c}, ${c}, ${c})`;
+    ctx.fillRect(0, y, 1, 1);
+  }
+};
+
+const drawLive = (ctx) => {
+  for (let y = 0; y < buffer.length; y++) {
+    const v = buffer[y] / 3;
+
+    ctx.fillStyle = "red";
+    ctx.fillRect(width - v, y, v, 1);
+  }
+};

@@ -3,11 +3,21 @@ body {
 }
 
 main {
-  max-width: none;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 canvas {
   width: auto;
   max-width: none;
-  /* border: 1px solid red; */
+  align-self: center;
+}
+
+#save {
+  margin-left: auto;
 }

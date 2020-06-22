@@ -9,7 +9,8 @@ body {
   padding: 0 1rem;
 }
 
-header {
+header > nav {
+  display: flex;
   max-width: $max-width;
   margin: 0 auto;
   padding: 10px 0;
