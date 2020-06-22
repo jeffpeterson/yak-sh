@@ -1,0 +1,13 @@
+body {
+  padding: 0;
+}
+
+main {
+  max-width: none;
+}
+
+canvas {
+  width: auto;
+  max-width: none;
+  /* border: 1px solid red; */
+}
