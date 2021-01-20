@@ -58,8 +58,12 @@ const asteroid = (n = Math.random(), m = Math.random()) =>
     }))
 
 const system = {
-  focus: earth,
-  shift: [-80, 0],
+  camera: {
+    focus: earth,
+    shift: [0, 0],
+    size: [canvas.width, canvas.height],
+    pos: [0, 0],
+  },
   objects: [
     // placeholder
     hole,
@@ -102,7 +106,7 @@ function move(obj, sys) {
 
 function draw(sys) {
   const ctx = canvas.getContext("2d")
-  const focus = sys.focus?.pos ?? [0, 0]
+  const focus = sys.camera.focus.pos
   const { shift } = sys
   ctx.fillStyle = "rgba(255, 255, 255, 0.01)"
   ctx.fillRect(0, 0, canvas.width, canvas.height)
