@@ -1,5 +1,3 @@
-const G = 6.674e-11
-
 extend(Object, {
   tap(f) {
     f(this)
@@ -89,6 +87,10 @@ extend(Array, {
   diff(b) {
     return this.add(b.neg)
   },
+
+  get canvas() {
+    return this.add(system.focus.pos)
+  },
 })
 
 extend(Number, {
@@ -103,7 +105,7 @@ extend(Number, {
   get draw() {
     const max = Math.min(canvas.height, canvas.width) / 2
     const f = max / SCALE
-    return Math.round(this * f)
+    return this * f
   },
 })
 
