@@ -1,6 +1,11 @@
 const G = 6.674e-11
 
 extend(Object, {
+  tap(f) {
+    f(this)
+    return this
+  },
+
   get x() {
     return this.pos.x
   },

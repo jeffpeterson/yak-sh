@@ -4,7 +4,7 @@ canvas.style.width = `100vw`
 canvas.style.height = `100vh`
 
 const M = 1e6
-const SCALE = 1000
+const SCALE = 100
 
 const hole = {
   color: "black",
@@ -38,7 +38,11 @@ const asteroid = (n = Math.random(), m = Math.random()) =>
     color: "#4D4845",
     mass: moon.mass * m * 1e-2,
     radius: 2, // 6.371e6
-  }.orbit(hole, n * 100 + 10))
+  }
+    .orbit(hole, n * 100 + 10)
+    .tap(a => {
+      a.vel = a.vel.scale(m + 0.1)
+    }))
 
 const system = {
   focus: hole,
