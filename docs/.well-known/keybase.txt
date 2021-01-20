@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/jeffpeterson
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://yak.sh
+  * I am jeffpeterson (https://keybase.io/jeffpeterson) on keybase.
+  * I have a public key ASD2XkEsPA5ERFu08W9mrjjmp-9bLYSu_Gg7OfEZ7HgZKAo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120b96488d582eeed7bb217ed82fa75b49a6880dbf394fdece565c92e0e5d0e02be0a",
+      "host": "keybase.io",
+      "kid": "0120f65e412c3c0e44445bb4f16f66ae38e6a7ef5b2d84aefc683b39f119ec7819280a",
+      "uid": "281663b3af6fc522246c89ecd5e9a219",
+      "username": "jeffpeterson"
+    },
+    "merkle_root": {
+      "ctime": 1507305180,
+      "hash": "556ae17263ca6e3e0d54ecd43684e80ba3124a785ba823ffc914688d33d70f7ff9fd30af6495983c96e44df73c73838b35afcb5fd9ccf8b9625fa6fe24947c10",
+      "hash_meta": "42d0638138b489f95ef81cfad76f28a30011dcad8c243cb51b25697c17ed313f",
+      "seqno": 1527680
+    },
+    "service": {
+      "hostname": "yak.sh",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.33"
+  },
+  "ctime": 1507305189,
+  "expire_in": 504576000,
+  "prev": "2a76dc20e8b99b3648a8af91bacbefaa45ded2654af0ff740e4d0884f17f2500",
+  "seqno": 15,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg9l5BLDwORERbtPFvZq445qfvWy2ErvxoOznxGex4GSgKp3BheWxvYWTFA0J7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwYjk2NDg4ZDU4MmVlZWQ3YmIyMTdlZDgyZmE3NWI0OWE2ODgwZGJmMzk0ZmRlY2U1NjVjOTJlMGU1ZDBlMDJiZTBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwZjY1ZTQxMmMzYzBlNDQ0NDViYjRmMTZmNjZhZTM4ZTZhN2VmNWIyZDg0YWVmYzY4M2IzOWYxMTllYzc4MTkyODBhIiwidWlkIjoiMjgxNjYzYjNhZjZmYzUyMjI0NmM4OWVjZDVlOWEyMTkiLCJ1c2VybmFtZSI6ImplZmZwZXRlcnNvbiJ9LCJtZXJrbGVfcm9vdCI6eyJjdGltZSI6MTUwNzMwNTE4MCwiaGFzaCI6IjU1NmFlMTcyNjNjYTZlM2UwZDU0ZWNkNDM2ODRlODBiYTMxMjRhNzg1YmE4MjNmZmM5MTQ2ODhkMzNkNzBmN2ZmOWZkMzBhZjY0OTU5ODNjOTZlNDRkZjczYzczODM4YjM1YWZjYjVmZDljY2Y4Yjk2MjVmYTZmZTI0OTQ3YzEwIiwiaGFzaF9tZXRhIjoiNDJkMDYzODEzOGI0ODlmOTVlZjgxY2ZhZDc2ZjI4YTMwMDExZGNhZDhjMjQzY2I1MWIyNTY5N2MxN2VkMzEzZiIsInNlcW5vIjoxNTI3NjgwfSwic2VydmljZSI6eyJob3N0bmFtZSI6Inlhay5zaCIsInByb3RvY29sIjoiaHR0cDoifSwidHlwZSI6IndlYl9zZXJ2aWNlX2JpbmRpbmciLCJ2ZXJzaW9uIjoxfSwiY2xpZW50Ijp7Im5hbWUiOiJrZXliYXNlLmlvIGdvIGNsaWVudCIsInZlcnNpb24iOiIxLjAuMzMifSwiY3RpbWUiOjE1MDczMDUxODksImV4cGlyZV9pbiI6NTA0NTc2MDAwLCJwcmV2IjoiMmE3NmRjMjBlOGI5OWIzNjQ4YThhZjkxYmFjYmVmYWE0NWRlZDI2NTRhZjBmZjc0MGU0ZDA4ODRmMTdmMjUwMCIsInNlcW5vIjoxNSwidGFnIjoic2lnbmF0dXJlIn2jc2lnxEDnxPMW22wnO2CI77aVc9PqF3XYYiY9E4XTzEyptjHKgKJh7AkUZd8pR5zLgfmgp5y2Ql3ApjdiAuiv7dwsXEoBqHNpZ190eXBlIKRoYXNogqR0eXBlCKV2YWx1ZcQgXJOfwvIBKfZzBZMDNuHEQ3BO4vhmLFdvYi53Tvro+x6jdGFnzQICp3ZlcnNpb24B
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jeffpeterson
+
+==================================================================

@@ -4,6 +4,8 @@ permalink: /:title/
 google_analytics: UA-107712986-1
 
 source: src
+destination: docs
+
 theme: null
 markdown: kramdown
 plugins:
