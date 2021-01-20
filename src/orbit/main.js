@@ -19,13 +19,13 @@ const sun = {
   color: "#E9C86D",
   mass: M,
   radius: 40, // 6.957e8
-}.orbit(hole, 1000)
+}.orbit(hole, 80)
 
 const earth = {
   color: "#6C99C6",
   mass: M / 3.33e5,
   radius: 10, // 6.371e6
-}.orbit(sun, 20)
+}.orbit(sun, 10)
 
 const moon = {
   color: "gray",
@@ -56,7 +56,7 @@ const system = {
   ],
 }
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 100; i++) {
   system.objects.push(asteroid())
 }
 
@@ -85,13 +85,14 @@ function move(obj, sys) {
 }
 
 function draw(sys) {
-  const focus = sys.focus?.pos ?? [0, 0]
   const ctx = canvas.getContext("2d")
+  const focus = sys.focus?.pos ?? [0, 0]
+
+  // ctx.clearRect(0, 0, canvas.width, canvas.height)
+
   ctx.save()
   ctx.translate(canvas.width / 2, canvas.height / 2)
   ctx.translate(-focus.x.draw, focus.y.draw)
-
-  // ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   for (const obj of sys.objects) {
     ctx.fillStyle = obj.color
@@ -102,8 +103,8 @@ function draw(sys) {
     ctx.stroke()
 
     if (obj === sun) {
-      drawVec("red", obj, obj.acceleration.scale(50))
-      drawVec("blue", obj, obj.vel.scale(5))
+      // drawVec("red", obj, obj.acceleration.scale(50))
+      // drawVec("blue", obj, obj.vel.scale(5))
     }
   }
 
