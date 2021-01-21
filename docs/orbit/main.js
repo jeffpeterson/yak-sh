@@ -141,3 +141,16 @@ function draw(sys) {
     ctx.stroke()
   }
 }
+
+/**
+ * Change the "speed" of the animation: speed(1.5) moves 50% faster.
+ */
+function speed(n) {
+  G *= n
+
+  for (const obj of system.objects) {
+    obj.vel = obj.vel.scale(n.sqrt)
+  }
+
+  return G
+}
