@@ -1,3 +1,6 @@
+---
+---
+
 # Ladders and Tar Pits
 
 Using concepts from the papers "Out of the Tar Pit" and "Up and Down the Ladder
@@ -21,8 +24,7 @@ thinking about problems differently.
 - [Are We There Yet?][there-yet] -- Rich Hickey
 - [On Building Systems That Will Fail][failing-systems] -- Fernando Corbato
 
-[tar-pit]:
-  https://github.com/papers-we-love/papers-we-love/blob/master/design/out-of-the-tar-pit.pdf
+[tar-pit]: https://github.com/papers-we-love/papers-we-love/blob/master/design/out-of-the-tar-pit.pdf
 [ladder]: https://worrydream.com/LadderOfAbstraction/
 [sicp]: https://mitpress.mit.edu/sicp/full-text/book/book-Z-H-10.html
 [humble]: http://www.cs.utexas.edu/users/EWD/transcriptions/EWD03xx/EWD340.html
@@ -30,5 +32,4 @@ thinking about problems differently.
 [values]: https://www.infoq.com/presentations/Value-Values
 [simple]: https://www.infoq.com/presentations/Simple-Made-Easy
 [there-yet]: https://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey
-[failing-systems]:
-  http://delivery.acm.org/10.1145/1290000/1283947/a1990-corbato.pdf
+[failing-systems]: http://delivery.acm.org/10.1145/1290000/1283947/a1990-corbato.pdf
