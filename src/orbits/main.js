@@ -232,6 +232,6 @@ processHash()
 function processHash() {
   const hash = location.hash.slice(1)
   if (hash) {
-    eval(hash)
+    eval(decodeURIComponent(hash))
   }
 }
