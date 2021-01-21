@@ -5,7 +5,6 @@ canvas.style.height = `100vh`
 
 const G = 6.674e-9 //-11
 const M = 1e6
-const SCALE = 8
 
 const hole = {
   color: "black",
@@ -60,6 +59,7 @@ const asteroid = (n = Math.random(), m = Math.random()) =>
 const system = {
   camera: {
     focus: earth,
+    scale: 8,
     shift: [0, 0],
     size: [canvas.width, canvas.height],
     pos: [0, 0],

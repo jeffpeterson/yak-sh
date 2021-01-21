@@ -104,7 +104,7 @@ extend(Number, {
 
   get draw() {
     const max = Math.min(canvas.height, canvas.width) / 2
-    const f = max / SCALE
+    const f = max / system.camera.scale
     return this * f
   },
 })
