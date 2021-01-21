@@ -38,14 +38,11 @@ extend(Object, {
     return this
   },
 
-  orbit(b, r = this.x) {
+  orbit(b, r = this.x, n = 1) {
     this.pos = b.pos.add([r, 0])
-    // const g = this.gravityFrom(b)
-    //   .scale(1 / this.mass)
-    //   .scale(this.distTo(b) / 2.15).len
 
     const g = ((G * (this.mass + b.mass)) / r).sqrt
-    const vel = [0, 1].scale(g)
+    const vel = [0, 1].scale(g * (n * 0.5 + 0.5))
     this.vel = b.vel.add(vel)
     return this
   },

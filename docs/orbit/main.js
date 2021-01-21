@@ -31,13 +31,13 @@ const mercury = {
   color: "#A4583A",
   mass: M * 3.33e-8,
   radius: 4, // 6.371e6
-}.orbit(sun, 1)
+}.orbit(sun, 1, Math.random())
 
 const mars = {
   color: "#A4583A",
   mass: M * 3.33e-5,
   radius: 8, // 6.371e6
-}.orbit(sun, 11)
+}.orbit(sun, 11, Math.random())
 
 const moon = {
   color: "gray",
@@ -50,15 +50,12 @@ const asteroid = (n = Math.random(), m = Math.random()) =>
     color: "#4D4845",
     mass: moon.mass * m * 1e-2,
     radius: 2, // 6.371e6
-  }
-    .orbit(sun, n * 10 + 0.1)
-    .tap(a => {
-      // a.vel = a.vel.scale(m + 0.1)
-    }))
+  }.orbit(sun, n * 10 + 0.1, Math.random()))
 
 const system = {
+  debug: false,
   camera: {
-    focus: earth,
+    focus: sun,
     scale: 8,
     shift: [0, 0],
     size: [canvas.width, canvas.height],
@@ -72,7 +69,6 @@ const system = {
     mars,
     earth,
     moon,
-    // asteroid().orbit(sun, 2),
   ],
 }
 
@@ -106,8 +102,9 @@ function move(obj, sys) {
 
 function draw(sys) {
   const ctx = canvas.getContext("2d")
-  const focus = sys.camera.focus.pos
   const { shift } = sys
+  const cam = sys.camera
+  const focus = cam.focus.pos
   ctx.fillStyle = "rgba(255, 255, 255, 0.01)"
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -124,9 +121,9 @@ function draw(sys) {
     ctx.fill()
     // ctx.stroke()
 
-    if (obj === sun) {
-      // drawVec("red", obj, obj.acceleration.scale(50))
-      // drawVec("blue", obj, obj.vel.scale(5))
+    if (sys.debug) {
+      drawVec("red", obj, obj.acceleration.scale(cam.scale))
+      drawVec("blue", obj, obj.vel.add(cam.focus.vel.neg).scale(cam.scale))
     }
   }
 
@@ -153,4 +150,8 @@ function speed(n) {
   }
 
   return G
+}
+
+function debug() {
+  system.debug = !system.debug
 }
