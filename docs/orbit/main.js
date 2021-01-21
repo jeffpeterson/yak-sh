@@ -55,8 +55,8 @@ const asteroid = (n = Math.random(), m = Math.random()) =>
 const system = {
   debug: false,
   camera: {
-    focus: sun,
-    scale: 8,
+    focus: earth,
+    scale: 9,
     shift: [0, 0],
     size: [canvas.width, canvas.height],
     pos: [0, 0],
@@ -108,6 +108,11 @@ function draw(sys) {
   ctx.fillStyle = "rgba(255, 255, 255, 0.01)"
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
+  if (sys.wipe) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    sys.wipe = false
+  }
+
   ctx.save()
   ctx.translate(canvas.width / 2, canvas.height / 2)
   ctx.translate(-focus.x.draw, focus.y.draw)
@@ -154,4 +159,48 @@ function speed(n) {
 
 function debug() {
   system.debug = !system.debug
+}
+
+function wipe() {
+  system.wipe = true
+}
+
+function focus(body) {
+  system.camera.focus = body
+  wipe()
+}
+
+function zoom(n) {
+  system.camera.scale /= n
+  wipe()
+}
+
+function scale(n) {
+  system.camera.scale = n
+  wipe()
+}
+
+console.log(`
+go(sun) // focus and zoom to another body
+speed(2) // change the speed (kinda)
+focus(hole) // focus on another body
+zoom(0.001) // zoom in or out
+`)
+
+function go(body) {
+  focus(body)
+
+  switch (body) {
+    case earth:
+      scale(9)
+      break
+
+    case sun:
+      scale(10)
+      break
+
+    case hole:
+      scale(10_000)
+      break
+  }
 }
