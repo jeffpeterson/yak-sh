@@ -6,7 +6,7 @@ canvas.style.height = `100vh`
 let G = 6.674e-9 //-11
 let M = 1e6
 
-const hole = {
+var hole = {
   color: "black",
   mass: 4.154e5 * M,
   radius: 5,
@@ -15,44 +15,44 @@ const hole = {
   grav: [0, 0],
 }
 
-const sun = {
+var sun = {
   color: "#E9C86D",
   mass: M,
   radius: 40, // 6.957e8
 }.orbit(hole, 1_000_0)
 
-const earth = {
+var earth = {
   color: "#6C99C6",
   mass: M / 3.33e6,
   radius: 10, // 6.371e6
 }.orbit(sun, 8)
 
-const mercury = {
+var mercury = {
   color: "#A4583A",
   mass: M * 3.33e-8,
   radius: 4, // 6.371e6
 }.orbit(sun, 1, Math.random())
 
-const mars = {
+var mars = {
   color: "#A4583A",
   mass: M * 3.33e-5,
   radius: 8, // 6.371e6
 }.orbit(sun, 11, Math.random())
 
-const moon = {
+var moon = {
   color: "gray",
   mass: earth.mass / 81,
   radius: 4, // 6.371e6
 }.orbit(earth, 0.01)
 
-const asteroid = (n = Math.random(), m = Math.random()) =>
+var asteroid = (n = Math.random(), m = Math.random()) =>
   ({
     color: "#4D4845",
     mass: moon.mass * m * 1e-2,
     radius: 2, // 6.371e6
   }.orbit(sun, n * 10 + 0.1, Math.random()))
 
-const system = {
+var system = {
   debug: false,
   camera: {
     focus: earth,
@@ -128,7 +128,13 @@ function draw(sys) {
 
     if (sys.debug) {
       drawVec("red", obj, obj.acceleration.scale(cam.scale))
-      drawVec("blue", obj, obj.vel.add(cam.focus.vel.neg).scale(cam.scale))
+      drawVec(
+        "blue",
+        obj,
+        obj.vel
+          .add(sys.debugAbsolute ? [0, 0] : cam.focus.vel.neg)
+          .scale(cam.scale),
+      )
     }
   }
 
@@ -157,7 +163,8 @@ function speed(n) {
   return G
 }
 
-function debug() {
+function debug(absolute = false) {
+  system.debugAbsolute = absolute
   system.debug = !system.debug
 }
 
@@ -195,6 +202,7 @@ function go(body) {
       scale(9)
       break
 
+    case mars:
     case sun:
       scale(10)
       break
@@ -202,5 +210,14 @@ function go(body) {
     case hole:
       scale(10_000)
       break
+  }
+}
+
+window.onhashchange = processHash
+processHash()
+function processHash() {
+  const hash = location.hash.slice(1)
+  if (hash) {
+    eval(hash)
   }
 }
