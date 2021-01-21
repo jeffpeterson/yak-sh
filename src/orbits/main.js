@@ -9,7 +9,7 @@ let M = 1e6
 var hole = {
   color: "black",
   mass: 4.154e5 * M,
-  radius: 5,
+  radius: 50,
   vel: [0, 0],
   pos: [0, 0],
   grav: [0, 0],
@@ -46,15 +46,16 @@ var moon = {
 }.orbit(earth, 0.01)
 
 var asteroids = []
-var asteroid = (n = Math.random(), m = Math.random()) =>
+var asteroid = (body, n = Math.random(), m = Math.random()) =>
   ({
     color: "#4D4845",
     mass: moon.mass * m * 1e-2,
     radius: 2, // 6.371e6
   }
-    .orbit(sun, n * 10 + 0.1, Math.random())
+    .orbit(body, n * 10 + 0.1, Math.random())
     .tap(a => {
       asteroids.push(a)
+      system.bodies.push(a)
     }))
 
 var system = {
@@ -78,7 +79,7 @@ var system = {
 }
 
 for (let i = 0; i < 50; i++) {
-  system.bodies.push(asteroid())
+  asteroid(sun)
 }
 
 loop()
