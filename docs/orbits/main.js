@@ -33,6 +33,12 @@ var mercury = {
   radius: 4, // 6.371e6
 }.orbit(sun, 1, Math.random())
 
+var venus = {
+  color: "#E7AF68",
+  mass: M * 3.33e-8,
+  radius: 7, // 6.371e6
+}.orbit(sun, 5, Math.random())
+
 var mars = {
   color: "#A4583A",
   mass: M * 3.33e-5,
@@ -72,6 +78,7 @@ var system = {
     hole,
     sun,
     mercury,
+    venus,
     mars,
     earth,
     moon,
