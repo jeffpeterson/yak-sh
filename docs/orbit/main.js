@@ -133,7 +133,7 @@ function draw(sys) {
         obj,
         obj.vel
           .add(sys.debugAbsolute ? [0, 0] : cam.focus.vel.neg)
-          .scale(cam.scale),
+          .scale(cam.scale / 2),
       )
     }
   }
@@ -163,9 +163,13 @@ function speed(n) {
   return G
 }
 
+function undebug() {
+  system.debug = false
+}
+
 function debug(absolute = false) {
   system.debugAbsolute = absolute
-  system.debug = !system.debug
+  system.debug = true
 }
 
 function wipe() {
