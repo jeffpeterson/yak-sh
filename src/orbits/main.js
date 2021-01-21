@@ -45,12 +45,17 @@ var moon = {
   radius: 4, // 6.371e6
 }.orbit(earth, 0.01)
 
+var asteroids = []
 var asteroid = (n = Math.random(), m = Math.random()) =>
   ({
     color: "#4D4845",
     mass: moon.mass * m * 1e-2,
     radius: 2, // 6.371e6
-  }.orbit(sun, n * 10 + 0.1, Math.random()))
+  }
+    .orbit(sun, n * 10 + 0.1, Math.random())
+    .tap(a => {
+      asteroids.push(a)
+    }))
 
 var system = {
   debug: false,
@@ -61,7 +66,7 @@ var system = {
     size: [canvas.width, canvas.height],
     pos: [0, 0],
   },
-  objects: [
+  bodies: [
     // placeholder
     hole,
     sun,
@@ -73,21 +78,21 @@ var system = {
 }
 
 for (let i = 0; i < 50; i++) {
-  system.objects.push(asteroid())
+  system.bodies.push(asteroid())
 }
 
 loop()
 function loop() {
-  for (const obj of system.objects) step(obj, system)
+  for (const obj of system.bodies) step(obj, system)
   draw(system)
-  for (const obj of system.objects) move(obj, system)
+  for (const obj of system.bodies) move(obj, system)
   requestAnimationFrame(loop)
 }
 
 function step(obj, sys) {
   obj.force = [0, 0]
 
-  for (const oth of sys.objects) {
+  for (const oth of sys.bodies) {
     if (obj === oth) continue
 
     obj.force = obj.force.add(obj.gravityFrom(oth))
@@ -108,9 +113,9 @@ function draw(sys) {
   ctx.fillStyle = "rgba(255, 255, 255, 0.01)"
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-  if (sys.wipe) {
+  if (sys.wipe || sys.wipeOnce) {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    sys.wipe = false
+    sys.wipeOnce = false
   }
 
   ctx.save()
@@ -118,7 +123,7 @@ function draw(sys) {
   ctx.translate(-focus.x.draw, focus.y.draw)
   // ctx.translate(shift.x.draw / 10, shift.y)
 
-  for (const obj of sys.objects) {
+  for (const obj of sys.bodies) {
     ctx.fillStyle = obj.color
     ctx.strokeStyle = "#eee"
     ctx.beginPath()
@@ -156,15 +161,15 @@ function draw(sys) {
 function speed(n) {
   G *= n
 
-  for (const obj of system.objects) {
+  for (const obj of system.bodies) {
     obj.vel = obj.vel.scale(n.sqrt)
   }
 
   return G
 }
 
-function undebug() {
-  system.debug = false
+function toggleDebug(p = !system.debug) {
+  system.debug = p
 }
 
 function debug(absolute = false) {
@@ -172,8 +177,12 @@ function debug(absolute = false) {
   system.debug = true
 }
 
-function wipe() {
-  system.wipe = true
+function wipe(p = true) {
+  system.wipeOnce = p
+}
+
+function wipeAll(p = true) {
+  system.wipe = p
 }
 
 function focus(body) {
