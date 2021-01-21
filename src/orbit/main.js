@@ -3,8 +3,8 @@ canvas.height = window.innerHeight * 2
 canvas.style.width = `100vw`
 canvas.style.height = `100vh`
 
-const G = 6.674e-9 //-11
-const M = 1e6
+let G = 6.674e-9 //-11
+let M = 1e6
 
 const hole = {
   color: "black",
