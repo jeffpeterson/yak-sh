@@ -93,6 +93,7 @@ var asteroids = []
 
 var asteroid = (body, d = 4, n = Math.random(), m = Math.random()) =>
   ({
+    asteroid: true,
     color: "gray",
     mass: moon.mass * m,
     radius: 2, // 6.371e6
@@ -112,7 +113,8 @@ var system = {
     size: [canvas.width, canvas.height],
     pos: [0, 0],
   },
-  bodies: [
+  bodies: [],
+  largeBodies: [
     // placeholder
     hole,
     sun,
@@ -129,9 +131,12 @@ var system = {
   ],
 }
 
+system.bodies.push(...system.largeBodies)
+
 for (let i = 0; i < 30; i++) {
   asteroid(sun, 2)
   asteroid(sun, 20)
+  asteroid(hole, 700)
 }
 
 loop()
@@ -149,7 +154,7 @@ function loop() {
 function step(obj, sys) {
   obj.force = [0, 0]
 
-  for (const oth of sys.bodies) {
+  for (const oth of sys.largeBodies) {
     if (obj === oth) continue
 
     obj.force = obj.force.add(obj.gravityFrom(oth))
