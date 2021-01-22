@@ -90,10 +90,11 @@ var eris = {
 }.orbit(sun, 67.8 * AU, Math.random())
 
 var asteroids = []
+
 var asteroid = (body, d = 4, n = Math.random(), m = Math.random()) =>
   ({
     color: "gray",
-    mass: moon.mass * m * 1e-2,
+    mass: moon.mass * m,
     radius: 2, // 6.371e6
   }
     .orbit(body, n * d * AU + 0.01, Math.random())

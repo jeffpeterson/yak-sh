@@ -40,7 +40,7 @@ extend(Object, {
     this.pos = b.pos.add([r, 0])
 
     const g = (b.mu / r).sqrt
-    const vel = [0, 1].scale(g * (n * 0.5 + 0.5))
+    const vel = [0, 1].scale(g * (n * 0.85 + 0.15))
     this.vel = b.vel.add(vel)
     return this
   },
