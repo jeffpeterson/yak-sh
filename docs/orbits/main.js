@@ -90,13 +90,13 @@ var eris = {
 }.orbit(sun, 67.8 * AU, Math.random())
 
 var asteroids = []
-var asteroid = (body, n = Math.random(), m = Math.random()) =>
+var asteroid = (body, d = 4, n = Math.random(), m = Math.random()) =>
   ({
     color: "gray",
     mass: moon.mass * m * 1e-2,
     radius: 2, // 6.371e6
   }
-    .orbit(body, n * 4 * AU + 0.01, Math.random())
+    .orbit(body, n * d * AU + 0.01, Math.random())
     .tap(a => {
       asteroids.push(a)
       system.bodies.push(a)
@@ -128,8 +128,9 @@ var system = {
   ],
 }
 
-for (let i = 0; i < 50; i++) {
-  asteroid(sun)
+for (let i = 0; i < 30; i++) {
+  asteroid(sun, 2)
+  asteroid(sun, 20)
 }
 
 loop()
