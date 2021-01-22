@@ -12,36 +12,34 @@ extend(Object, {
     return this.pos.y
   },
 
+  /** Standard gravitational parameter */
+  get mu() {
+    return this.mass * G
+  },
+
   get acceleration() {
     return this.force.scale(1 / this.mass)
   },
 
   gravityFrom(b) {
-    const m = this.mass * b.mass
     const r = this.distTo(b)
-    const g = (G * m) / r.sq
+    const g = (b.mu * this.mass) / r.sq
 
-    return b.diff(this).unit.scale(g)
+    return b.sub(this).unit.scale(g)
   },
 
-  diff(b) {
-    return this.pos.diff(b.pos)
+  sub(b) {
+    return this.pos.sub(b.pos)
   },
 
   distTo(b) {
     return this.pos.distTo(b.pos)
   },
 
-  relTo(b) {
-    this.pos = this.pos.add(b.pos)
-    this.vel = this.vel.add(b.vel)
-    return this
-  },
-
   orbit(b, r = this.x, n = 1) {
     this.pos = b.pos.add([r, 0])
 
-    const g = ((G * (this.mass + b.mass)) / r).sqrt
+    const g = (b.mu / r).sqrt
     const vel = [0, 1].scale(g * (n * 0.5 + 0.5))
     this.vel = b.vel.add(vel)
     return this
@@ -78,10 +76,10 @@ extend(Array, {
   },
 
   distTo(b) {
-    return this.diff(b).len
+    return this.sub(b).len
   },
 
-  diff(b) {
+  sub(b) {
     return this.add(b.neg)
   },
 

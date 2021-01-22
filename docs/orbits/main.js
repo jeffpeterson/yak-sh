@@ -3,8 +3,10 @@ canvas.height = window.innerHeight * 2
 canvas.style.width = `100vw`
 canvas.style.height = `100vh`
 
-let G = 6.674e-9 //-11
-let M = 1e6
+let G = 3.674e-12 // 6.674e-11 // Gravitational constant
+let M = 1e6 // Solar Mass
+let Me = M / 332_946 // Earth mass
+let AU = 1 // Astronomical unit
 
 var hole = {
   color: "black",
@@ -19,46 +21,82 @@ var sun = {
   color: "#E9C86D",
   mass: M,
   radius: 40, // 6.957e8
-}.orbit(hole, 1_000_0)
-
-var earth = {
-  color: "#6C99C6",
-  mass: M / 3.33e6,
-  radius: 10, // 6.371e6
-}.orbit(sun, 8)
+}.orbit(hole, 900 * AU)
 
 var mercury = {
   color: "#A4583A",
-  mass: M * 3.33e-8,
+  mass: 0.0553 * Me,
   radius: 4, // 6.371e6
-}.orbit(sun, 1, Math.random())
+}.orbit(sun, 0.387 * AU, Math.random())
 
 var venus = {
   color: "#E7AF68",
-  mass: M * 3.33e-8,
+  mass: 0.815 * Me,
   radius: 7, // 6.371e6
-}.orbit(sun, 5, Math.random())
+}.orbit(sun, 0.72 * AU, Math.random())
 
-var mars = {
-  color: "#A4583A",
-  mass: M * 3.33e-5,
-  radius: 8, // 6.371e6
-}.orbit(sun, 11, Math.random())
+var earth = {
+  color: "#6C99C6",
+  mass: Me,
+  radius: 10, // 6.371e6
+}.orbit(sun, 1 * AU)
 
 var moon = {
   color: "gray",
-  mass: earth.mass / 81,
+  mass: 0.0123 * Me,
   radius: 4, // 6.371e6
-}.orbit(earth, 0.01)
+}.orbit(earth, 0.0026 * AU)
+
+var mars = {
+  color: "#A4583A",
+  mass: 0.107 * Me,
+  radius: 8, // 6.371e6
+}.orbit(sun, 1.52 * AU, Math.random())
+
+var jupiter = {
+  color: "#BD8847",
+  mass: 317.8 * Me,
+  radius: 11, // 6.371e6
+}.orbit(sun, 5.2 * AU, Math.random())
+
+var saturn = {
+  color: "#E0C284",
+  mass: 95.2 * Me,
+  radius: 11, // 6.371e6
+}.orbit(sun, 9.5 * AU, Math.random())
+
+var uranus = {
+  color: "#D7F5F7",
+  mass: 14.5 * Me,
+  radius: 11, // 6.371e6
+}.orbit(sun, 19.2 * AU, Math.random())
+
+var kuiperBelt = {
+  color: "#A4583A",
+  mass: 14.5 * Me,
+  radius: 11, // 6.371e6
+}.orbit(sun, 30 * AU, Math.random())
+
+var neptune = {
+  color: "#7A95BA",
+  mass: 17.1 * Me,
+  radius: 11, // 6.371e6
+}.orbit(sun, 30.1 * AU, Math.random())
+
+var eris = {
+  color: "#A4583A",
+  mass: 0.0027 * Me,
+  radius: 5, // 6.371e6
+}.orbit(sun, 67.8 * AU, Math.random())
 
 var asteroids = []
 var asteroid = (body, n = Math.random(), m = Math.random()) =>
   ({
-    color: "#4D4845",
+    color: "gray",
     mass: moon.mass * m * 1e-2,
     radius: 2, // 6.371e6
   }
-    .orbit(body, n * 10 + 0.1, Math.random())
+    .orbit(body, n * 4 * AU + 0.01, Math.random())
     .tap(a => {
       asteroids.push(a)
       system.bodies.push(a)
@@ -68,7 +106,7 @@ var system = {
   debug: false,
   camera: {
     focus: earth,
-    scale: 9,
+    scale: 9 * AU,
     shift: [0, 0],
     size: [canvas.width, canvas.height],
     pos: [0, 0],
@@ -79,9 +117,14 @@ var system = {
     sun,
     mercury,
     venus,
-    mars,
     earth,
     moon,
+    mars,
+    jupiter,
+    saturn,
+    uranus,
+    neptune,
+    eris,
   ],
 }
 
@@ -92,6 +135,10 @@ for (let i = 0; i < 50; i++) {
 loop()
 function loop() {
   for (const obj of system.bodies) step(obj, system)
+  system.camera.tap(cam => {
+    cam.pos = cam.focus.pos
+    cam.vel = cam.focus.vel
+  })
   draw(system)
   for (const obj of system.bodies) move(obj, system)
   requestAnimationFrame(loop)
@@ -117,7 +164,6 @@ function draw(sys) {
   const ctx = canvas.getContext("2d")
   const { shift } = sys
   const cam = sys.camera
-  const focus = cam.focus.pos
   ctx.fillStyle = "rgba(255, 255, 255, 0.01)"
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -128,7 +174,7 @@ function draw(sys) {
 
   ctx.save()
   ctx.translate(canvas.width / 2, canvas.height / 2)
-  ctx.translate(-focus.x.draw, focus.y.draw)
+  ctx.translate(-cam.x.draw, cam.y.draw)
   // ctx.translate(shift.x.draw / 10, shift.y)
 
   for (const obj of sys.bodies) {
@@ -145,7 +191,7 @@ function draw(sys) {
         "blue",
         obj,
         obj.vel
-          .add(sys.debugAbsolute ? [0, 0] : cam.focus.vel.neg)
+          .add(sys.debugAbsolute ? [0, 0] : cam.vel.neg)
           .scale(cam.scale / 2),
       )
     }
@@ -204,7 +250,7 @@ function zoom(n) {
 }
 
 function scale(n) {
-  system.camera.scale = n
+  system.camera.scale = n * AU
   wipe()
 }
 
@@ -219,20 +265,42 @@ function go(body) {
   focus(body)
 
   switch (body) {
+    case sun:
+      scale(3)
+      break
+
     case earth:
-      scale(9)
+      scale(1.1) // 0.1
       break
 
     case mars:
-    case sun:
-      scale(10)
+      scale(2)
+      break
+
+    case jupiter:
+      scale(5)
+      break
+
+    case saturn:
+      scale(8)
+      break
+
+    case neptune:
+    case uranus:
+      scale(30)
+      break
+
+    case eris:
+      scale(70)
       break
 
     case hole:
-      scale(10_000)
+      scale(900)
       break
   }
 }
+
+go(earth)
 
 window.onhashchange = processHash
 processHash()
