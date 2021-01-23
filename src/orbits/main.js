@@ -129,6 +129,17 @@ var system = {
     neptune,
     eris,
   ],
+
+  gravityAt(pt) {
+    return this.largeBodies.reduce(
+      (force, body) => {
+        const r = body.pos.distTo(pt)
+        const g = body.mu / r.sq
+        return pt.sub(body.pos).unit.scale(g).add(force)
+      },
+      [0, 0],
+    )
+  },
 }
 
 system.bodies.push(...system.largeBodies)
@@ -139,7 +150,11 @@ for (let i = 0; i < 30; i++) {
   asteroid(hole, 700)
 }
 
+let rotation = 0
+
+drawInitial(system)
 loop()
+
 function loop() {
   for (const obj of system.bodies) step(obj, system)
   system.camera.tap(cam => {
@@ -167,21 +182,34 @@ function move(obj, sys) {
   obj.pos = obj.pos.add(obj.vel)
 }
 
+function drawInitial(sys) {
+  const ctx = canvas.getContext("2d")
+
+  ctx.fillStyle = "rgb(0, 0, 0)"
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+}
+
 function draw(sys) {
   const ctx = canvas.getContext("2d")
   const { shift } = sys
   const cam = sys.camera
-  ctx.fillStyle = "rgba(255, 255, 255, 0.01)"
+
+  ctx.globalCompositeOperation = "overlay"
+  // ctx.globalCompositeOperation = "screen"
+  ctx.fillStyle = "rgba(0, 0, 0, 0.009)"
   ctx.fillRect(0, 0, canvas.width, canvas.height)
+  ctx.globalCompositeOperation = "source-over"
 
   if (sys.wipe || sys.wipeOnce) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    drawInitial(sys)
     sys.wipeOnce = false
   }
 
   ctx.save()
   ctx.translate(canvas.width / 2, canvas.height / 2)
+  // ctx.rotate((rotation += 0.02))
   ctx.translate(-cam.x.draw, cam.y.draw)
+
   // ctx.translate(shift.x.draw / 10, shift.y)
 
   for (const obj of sys.bodies) {
@@ -193,24 +221,30 @@ function draw(sys) {
     // ctx.stroke()
 
     if (sys.debug) {
-      drawVec("red", obj, obj.acceleration.scale(cam.scale))
+      drawVec("red", obj.pos, obj.acceleration.scale(cam.scale))
       drawVec(
         "blue",
-        obj,
+        obj.pos,
         obj.vel
           .add(sys.debugAbsolute ? [0, 0] : cam.vel.neg)
           .scale(cam.scale / 2),
       )
+
+      // for (let x = 0; x < canvas.width; x += 20) {
+      //   for (let y = 0; y < canvas.height; y += 20) {
+
+      //   }
+      // }
     }
   }
 
   ctx.restore()
 
-  function drawVec(color, obj, v) {
+  function drawVec(color, pos, v) {
     ctx.strokeStyle = color
     ctx.beginPath()
-    ctx.moveTo(obj.pos.x.draw, -obj.pos.y.draw)
-    const g = obj.pos.add(v)
+    ctx.moveTo(pos.x.draw, -pos.y.draw)
+    const g = pos.add(v)
     ctx.lineTo(g.x.draw, -g.y.draw)
     ctx.stroke()
   }
@@ -277,7 +311,7 @@ function go(body) {
       break
 
     case earth:
-      scale(1.1) // 0.1
+      scale(1.5) // 0.1
       break
 
     case mars:
