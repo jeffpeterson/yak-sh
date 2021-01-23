@@ -96,7 +96,7 @@ var asteroid = (body, d = 4, n = Math.random(), m = Math.random()) =>
     asteroid: true,
     color: "gray",
     mass: moon.mass * m,
-    radius: 2, // 6.371e6
+    radius: 1, // 6.371e6
   }
     .orbit(body, n * d * AU + 0.01, Math.random())
     .tap(a => {
