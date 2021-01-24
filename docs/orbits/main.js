@@ -310,6 +310,7 @@ function go(body) {
       scale(3)
       break
 
+    case mercury:
     case earth:
       scale(1.5) // 0.1
       break
