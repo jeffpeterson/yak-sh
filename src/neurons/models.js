@@ -1,3 +1,5 @@
+let DECAY = 0.9
+
 class Base {
   static of(...props) {
     return new this(...props)
@@ -27,21 +29,26 @@ class Base {
 
 class Neuron extends Base {
   static get defaults() {
-    const r = Math.random() * 255
-    const g = Math.random() * 255
-    const b = Math.max(0, 255 - r - g)
+    const r = Math.random()
+    const g = Math.random()
+    const b = Math.max(0, 1 - r - g)
 
     return {
-      color: "red", //`rgb(${})`
+      color: [r, g, b].color,
       radius: 20,
       pos: [0, 0],
 
-      decay: 0.95,
       base: 0,
-      threshold: 1,
       inputs: [],
       outputs: [],
     }
+  }
+
+  setup() {
+    const { x, y } = this.pos
+    this.self.index ??= []
+    this.self.index[x] ??= []
+    this.self.index[x][y] = this
   }
 
   get input() {
@@ -77,23 +84,25 @@ class Neuron extends Base {
 
   sendAction() {
     for (const syn of this.outputs) syn.action()
-
-    // this.reward()
+    // setTimeout(() => syn.action(), syn.length.sqrt * 10)
+    this.reward()
   }
 
   reward() {
     const total = this.value
+
     for (const syn of this.inputs) {
-      const amt = syn.value / total
-      console.log(amt)
-      syn.strength *= 1 + amt
+      // const amt = syn.value / total
+      // console.log(amt)
+      // syn.strength *= amt
+      if (syn.value < 0.01) syn.strength *= 0.1
     }
   }
 
   step(sys) {
-    if (this.value >= this.threshold) this.sendAction()
+    if (this.value >= 1) this.sendAction()
     for (const syn of this.outputs) syn.step(sys)
-    this.base *= this.decay
+    this.base *= DECAY
   }
 
   draw(ctx) {
@@ -122,22 +131,33 @@ class Synapse extends Base {
 
       strength: Math.random(),
       value: 0,
-      decay: 0.95,
     }
   }
 
+  get length() {
+    return this.input.pos.distTo(this.output.pos)
+  }
+
   action() {
+    setTimeout(() => this._action(), (this.length * 100) / this.strength)
+  }
+
+  _action() {
+    this.strength = [this.strength + 0.1, 1].min
     this.value = this.strength
   }
 
   step() {
-    this.value *= this.decay
+    this.value *= DECAY * this.strength
+    if (this.value < 0.001) this.value = 0
   }
 
   draw(ctx) {
+    if (this.strength === 0) return
+
     ctx.beginPath()
     ctx.strokeStyle = "silver"
-    ctx.lineWidth = 2
+    ctx.lineWidth = this.strength * 10
     ctx.moveTo(this.input.pos.x.draw, -this.input.pos.y.draw)
     ctx.lineTo(this.output.pos.x.draw, -this.output.pos.y.draw)
     ctx.stroke()
@@ -145,7 +165,7 @@ class Synapse extends Base {
     if (this.value > 0) {
       ctx.beginPath()
       ctx.strokeStyle = this.input.color
-      ctx.lineWidth = this.value * 20
+      ctx.lineWidth = this.value * 10
       ctx.moveTo(this.input.pos.x.draw, -this.input.pos.y.draw)
       ctx.lineTo(this.output.x.draw, -this.output.y.draw)
       ctx.stroke()

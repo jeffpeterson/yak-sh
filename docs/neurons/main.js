@@ -19,13 +19,16 @@ for (let x = 0; x < 7; x++) {
 
   for (let y = 1; y < 8; y++) {
     const n = Neuron.of({ pos: [x - 3, y - 4] })
-    n.from(...prevCol.sampleOf(3))
-    n.from(...Neuron.all.sampleOf(1))
+    n.from(...prevCol)
+    // n.from(...Neuron.all.sampleOf(1))
     curCol.push(n)
   }
 }
-
-let B2 = Neuron.of({ pos: [4, 0] }).from(...curCol.sampleOf(3))
+// x
+let B = Neuron.of({ pos: [4, 0] }).from(...curCol)
+// let C1 = Neuron.of({ pos: [0, 10] })
+//   .from(B2, ...curCol.sampleOf(3))
+//   .to(A2)
 
 // let B1 = Neuron.of({ pos: [0, -2] }).from(A1, A2)
 // let B2 = Neuron.of({ pos: [0, -1] }).from(A1, A2)

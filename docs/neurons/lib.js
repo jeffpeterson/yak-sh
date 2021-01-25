@@ -59,6 +59,14 @@ extend(Array, {
     return this[1]
   },
 
+  get min() {
+    return Math.min(...this)
+  },
+
+  get max() {
+    return Math.max(...this)
+  },
+
   get sum() {
     return this.reduce((a, b) => a + b, 0)
   },
@@ -105,6 +113,11 @@ extend(Array, {
 
   get canvas() {
     return this.add(system.focus.pos)
+  },
+
+  /** [0.5, 0.5, 0.5].color //=> rgb(127, 127, 127) */
+  get color() {
+    return `rgb(${this.map(x => Math.round(x * 255)).join(",")})`
   },
 })
 
